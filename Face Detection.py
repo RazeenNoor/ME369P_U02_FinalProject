@@ -26,8 +26,8 @@ while True:
         xfrac=faces[0][0]/width 
         yfrac=faces[0][1]/width
         newframe[y:y+h,x:x+w]=frameROIBGR
-        xpos=int(1020*xfrac)
-        ypos=int(1080*yfrac)
+        #xpos=int(1020*xfrac)
+        #ypos=int(1080*yfrac)
         if len(faces) ==1:
             cv2.putText(newframe, "Person Detected", (0,height-10),cv2.FONT_HERSHEY_SIMPLEX,1,(255,0,255),2)
         else:
