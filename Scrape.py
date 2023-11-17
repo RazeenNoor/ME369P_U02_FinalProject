@@ -23,8 +23,19 @@ class Cities:
         city_description=s.find('p', attrs={"data-testid":"wxPhrase", "class":"DailyContent--narrative--3Ti6_"}).text
         Weather={'temp':city_temp, 'precip':city_rain, 'conditions':city_description}
 
-        #Returns a dictionary with current temp, chance of rain, and a description of current conditions
-        return Weather
+        s2=s.find("div",{"class":"DailyForecast--DisclosureList--nosQS"})
+        s3=s2.find_all("details")
+        Forecast={}
+        for day in s3[1:4]:
+            date=day.find("h3",{"data-testid":"daypartName","class":"DetailsSummary--daypartName--kbngc"}).text
+            high_low=day.find("div",{"data-testid":"detailsTemperature","class":"DetailsSummary--temperature--1kVVp"}).text     
+            rain_chance=day.find("span",{"data-testid":"PercentageValue"}).text
+            description=day.find("span",{"class":"DetailsSummary--extendedData--307Ax"}).text
+            Forecast[date]=(high_low,rain_chance, description)     
+
+        #Current Weather returns a dictionary with current temp, chance of rain, and a description of current conditions
+        #Forecast is for the next 3 days and returns dictionary with date as key and high/low, chance of rain, and description of sky as items in a tuple
+        return CurrentWeather, Forecast
 
         
     def news(self):
@@ -104,7 +115,7 @@ class Cities:
 
 if __name__ == '__main__':
     pass
-    A=Cities('auStin')        #Pass the city name
+    # A=Cities('auStin')        #Pass the city name
     # A.landmarks()
     # A.weather()
     # A.news()
@@ -116,6 +127,7 @@ if __name__ == '__main__':
     # B.events()
     # C=Cities('Chicago')
     # print(C.landmarks())
-    # C.weather()
+    # day, forecast=C.weather()
+    # print(f'{day}\n{forecast}')
     # C.events()
 
