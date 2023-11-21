@@ -21,7 +21,7 @@ class Cities:
         city_temp = s.find("span",attrs={"class":"styles--temperature--3YaGV"}).text
         city_rain=s.find("span", attrs={"data-testid":"PercentageValue", "class":"DailyContent--value--1Jers"}).text
         city_description=s.find('p', attrs={"data-testid":"wxPhrase", "class":"DailyContent--narrative--3Ti6_"}).text
-        Weather={'temp':city_temp, 'precip':city_rain, 'conditions':city_description}
+        Current_weather={'temp':city_temp, 'precip':city_rain, 'conditions':city_description}
 
         s2=s.find("div",{"class":"DailyForecast--DisclosureList--nosQS"})
         s3=s2.find_all("details")
@@ -35,7 +35,7 @@ class Cities:
 
         #Current Weather returns a dictionary with current temp, chance of rain, and a description of current conditions
         #Forecast is for the next 3 days and returns dictionary with date as key and high/low, chance of rain, and description of sky as items in a tuple
-        return CurrentWeather, Forecast
+        return Current_weather, Forecast
 
         
     def news(self):
