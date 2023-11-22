@@ -20,86 +20,94 @@ class BuildPDF:
         
         # Title and Current Weather
         pdf_content = (
-                        f"<T>Information for {self.city.capitalize()}<TT>\nas of {current_date_time}\n\n" #Title
+                        f"<T>Information for {self.city.capitalize()}\n as of {current_date_time}\n\n" #Title
                        
-                        f"<H>Current Weather:<HH>\n" #Heading
-                        f"-Temperature: {current_weather['temp']}\n"
-                        f"-Precipitation: {current_weather['precip']}\n"
-                        f"-Current Conditions:\n{current_weather['conditions']}\n"
+                        f"<H>Current Weather:\n" #Heading
+                        f"- The current temperature is {current_weather['temp']}\n"
+                        f"- There is a {current_weather['precip']} chance of rain\n"
+                        f"- Current Conditions:\n{current_weather['conditions']}\n"
                        )
 
-        # 3-Day Forecast 
-        pdf_content += "\n<H>3-Day Forecast:<HH>\n" #Heading
+        # 5 Day Forecast 
+        pdf_content += "\n<H>5 Day Forecast:\n" #Heading
         for date, details in forecast.items():
-            pdf_content += (f"- {date}:\n"
-                            f"     High/Low: {details[0]}\n"
+            pdf_content += (f"<h>- {date}:\n"
+                            f"     High / Low: {details[0]}\n"
                             f"     Chance of Rain: {details[1]}\n"
-                            f"     Description: {details[2]}\n"
+                            f"     Description: {details[2]}\n\n"
                             )
-          
+        
         # Current News
-        pdf_content += "\n<H>Current News:<HH>\n" #Heading
+        pdf_content += "<H>Current News:\n" #Heading
         for headline in city_instance.news():
             pdf_content += f"- {headline}\n"
         
         # Events
-        pdf_content += "\n<H>Events:<HH>\n" #Heading
+        pdf_content += "\n<H>Events:\n" #Heading
         for event, (date, time) in city_instance.events().items():
             pdf_content += f"- {event} on {date} at {time}\n"
         
-        # Landmarks
-        pdf_content += "\n<H>Landmarks:<HH>\n" #Heading
-        for landmark, img_url in city_instance.landmarks().items():
-            pdf_content += f"- {landmark} {img_url}\n"
+        # # Landmarks
+        # pdf_content += "\n<H>Landmarks:<HH>\n" #Heading
+        # for landmark, img_url in city_instance.landmarks().items():
+        #     pdf_content += f"- {landmark} {img_url}\n"
 
-        # formatting
+        # create canvas
         c = canvas.Canvas(filename, pagesize=letter)
         width, height = letter
-        margin = 50
         
-        #Fonts
+        #Fonts and size
         Tfont,Tsize="Helvetica-Bold",20
-        Hfont,Hsize="Courier-Bold",16
+        Hfont,Hsize="Helvetica-Bold",16
         tfont,tsize="Helvetica",12
         
         #Font colors
-        Hcolor = (0, 0, 1)  # RGB (0-1)
+        Hcolor = (.2, .5, 1)  # RGB values from 0-1
         Tcolor = (1, 0, 0)
         tcolor = (0, 0, 0)
 
         # line spacing
+        margin = 50
         lines = pdf_content.split('\n')
-        line_height = 14 
-        max_line_width = width - 2 * margin  # Maximum width for a line
+        line_height = 15 
+        max_width = width - 2 * margin  # Maximum width for a line
         current_height = height - margin
 
+        # line formating
         for line in lines:
             if "<T>" in line:
-                # Title line
+                # Title 
                 c.setFillColor(Tcolor)
                 c.setFont(Tfont, Tsize)
-                title = line.replace("<T>", "").replace("<TT>", "")
+                title = line.replace("<T>", "")
                 c.drawString(margin, current_height, title)
                 current_height -= line_height
             elif "<H>" in line:
-                # Heading line
+                # Heading 
                 c.setFillColor(Hcolor)
                 c.setFont(Hfont, Hsize)
-                heading = line.replace("<H>", "").replace("<HH>", "")
+                heading = line.replace("<H>", "")
                 c.drawString(margin, current_height, heading)
                 current_height -= line_height
+            elif "<h>" in line:
+                # Subheading 
+                c.setFillColor(tcolor)
+                c.setFont(tfont+'-Bold', 14)
+                subheading = line.replace("<h>", "")
+                c.drawString(margin, current_height, subheading)
+                current_height -= line_height
             else:
+                # Rest of Text
                 c.setFillColor(tcolor)
                 c.setFont(tfont, tsize)
                 
-                # Wrapping
-                # Split the line into words
+                # line wrapping
                 words = line.split()
                 current_line = ""
 
                 for word in words:
                     # Check if next word exceeds max_line_width
-                    if c.stringWidth(current_line + word, tfont, tsize) < max_line_width:
+                    if c.stringWidth(current_line + word, tfont, tsize) < max_width:
                         current_line += word + " "
                     else:
                         # start a new line
