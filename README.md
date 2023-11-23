@@ -7,6 +7,7 @@ This project aims to provide travelers with convenient access to real time infor
 OpenCV Package Installation:
 * `pip install opencv-python`
 * `conda install -c conda-forge opencv`
+  
 This file utilizes OpenCV to detect ArUco markers. ArUco markers are 5x5 black and white binary squares that provide a fast and simple detection. 
 
 Below are the associated ArUco marekers of the supported cities.
