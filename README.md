@@ -33,7 +33,7 @@ Requests and BeautifulSoup Package Installation
 This file consists of a class called `Cities` that creates an instance for the desired travel destination and has the following attributes: `weather()`, `.news()`, `.events()` and `.landmarks()` where the beautifulSoup and request packages are utilized to open the website and scrape text from the html code. For a crashcourse in html scraping click [here](https://scrapeops.io/python-web-scraping-playbook/python-beautifulsoup-find/).
 
 ## Utilizing this Project
-To utilize this project the user will need to download the following files from our github: `ArucoMarkerDetection.py`, `Pdf.py`, `Scrape.py` and the aforementioned packages used in the files. Once this is complete users will only need to run `arUco file name?`.
+To utilize this project the user will need to download the following files from our github: `ArucoMarkerDetection.py`, `Pdf.py`, `Scrape.py` and the aforementioned packages used in the files. Once this is complete users will only need to run `ArucoMarkerDetection.py`.
 
 > Note:  The `ArucoMarkerDetection.py`, `Pdf.py`, and `Scrape.py` files should all be in the same working directory. 
 
