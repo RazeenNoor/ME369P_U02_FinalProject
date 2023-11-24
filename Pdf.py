@@ -1,6 +1,7 @@
 import Scrape
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
+from reportlab.lib.utils import ImageReader
 from datetime import datetime
 
 
@@ -28,8 +29,8 @@ class BuildPDF:
                         f"- Current Conditions:\n{current_weather['conditions']}\n"
                        )
 
-        # 5 Day Forecast 
-        pdf_content += "\n<H>5 Day Forecast:\n" #Heading
+        # 3 Day Forecast 
+        pdf_content += "\n<H>3 Day Forecast:\n" #Heading
         for date, details in forecast.items():
             pdf_content += (f"<h>- {date}:\n"
                             f"     High / Low: {details[0]}\n"
@@ -47,10 +48,13 @@ class BuildPDF:
         for event, (date, time) in city_instance.events().items():
             pdf_content += f"- {event} on {date} at {time}\n"
         
-        # # Landmarks
-        # pdf_content += "\n<H>Landmarks:<HH>\n" #Heading
-        # for landmark, img_url in city_instance.landmarks().items():
-        #     pdf_content += f"- {landmark} {img_url}\n"
+        # Landmarks
+        pdf_content += "\n<H>Landmarks:\n" #<HH> Heading
+        landmark_imgs=[]
+        for landmark, img_url in city_instance.landmarks().items():
+            landmark_imgs.append(ImageReader(img_url))
+            pdf_content += f"- {landmark} \n"
+
 
         # create canvas
         c = canvas.Canvas(filename, pagesize=letter)
@@ -118,10 +122,17 @@ class BuildPDF:
                 # Draw rest of line
                 c.drawString(margin, current_height, current_line.strip())
                 current_height -= line_height
+        
+        # Adding Images
+        x=50
+        for landmark in landmark_imgs:
+            c.drawImage(landmark,x,10, width=100, height=80,mask='auto')
+            x+=105
 
         c.save()
 
 if __name__ == '__main__':
-    BuildPDF("Austin")
-    BuildPDF("Boston")
-    BuildPDF("Chicago")
+    pass
+    # BuildPDF("Austin")
+    # BuildPDF("Boston")
+    # BuildPDF("Chicago")

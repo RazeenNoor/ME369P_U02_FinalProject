@@ -106,7 +106,7 @@ class Cities:
         landmark_caption=s.find_all("div",{'class':'thumbcaption text-align-center'})
         Landmarks={}
         for img,landmark in zip(landmark_img[:5],landmark_caption[:5]):
-            Landmarks[landmark.text]=img['src']
+            Landmarks[landmark.text]="https:"+img['src']
 
         #Returns dictionary of five landmark names with associated url to image 
         return Landmarks
@@ -122,7 +122,7 @@ if __name__ == '__main__':
     # print(A.events())
     # B=Cities('BosTon')
     # B.landmarks()
-    # B.weather()
+    # print(B.weather())
     # B.news()
     # B.events()
     # C=Cities('Chicago')
