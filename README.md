@@ -2,17 +2,18 @@
 By: Jason Rivas, Razeen Noor, and Isabella Gomez
 
 This project aims to provide travelers with convenient access to real time information about their destination. This project consitsts of three main components: detecting ArUco markers that are associated with the travel destination, generating the pdf with the scraped information, and scraping the information from real-time sources. 
+![](https://github.com/RazeenNoor/ME369P_U02_LightningTalk/blob/2dbd3e1347439c818766b9efcd29dbfc10fc3973/Images/Program%20Architecture.png)
+
 
 ## ArUco Marker Detection 
 OpenCV Package Installation:
 * `pip install opencv-python`
 * `conda install -c conda-forge opencv`
   
-This file utilizes OpenCV to detect ArUco markers. ArUco markers are 5x5 black and white binary squares that provide a fast and simple detection. 
+This file utilizes OpenCV to detect ArUco markers and is the main file for the project. ArUco markers are 5x5 black and white binary squares that provide a fast and simple detection. 
 
-Below are the associated ArUco marekers of the supported cities.
-**insert images
-![caption]()
+Below are the associated ArUco markers of the supported cities.
+![](https://github.com/RazeenNoor/ME369P_U02_LightningTalk/blob/f0d2379ab93900487e0a105cc1b1c3166f3b4523/Images/ArUco%20Markers.png)
 
 
 ## Generating the pdf
@@ -29,14 +30,14 @@ Requests and BeautifulSoup Package Installation
 * `pip install bs4`
 * `conda install -c conda-forge bs4`
 
-This file consists of a class called `Cities` that creates an instance for the desired travel destination and has the following attributes: `weather()`, `.news()`, `.events()` and `.landmarks()` where the beautifulSoup and request packages are utilized to open the website and scrape text from the html code. For a crashcourse in html scraping click [here](*link).
+This file consists of a class called `Cities` that creates an instance for the desired travel destination and has the following attributes: `weather()`, `.news()`, `.events()` and `.landmarks()` where the beautifulSoup and request packages are utilized to open the website and scrape text from the html code. For a crashcourse in html scraping click [here](https://scrapeops.io/python-web-scraping-playbook/python-beautifulsoup-find/).
 
 ## Utilizing this Project
-To utilize this project the user will need to download the following files from our github: `arUco file name?`, `Pdf.py`, `Scrape.py` and the aforementioned packages used in the files. Once this is complete users will only need to run `arUco file name?`.
+To utilize this project the user will need to download the following files from our github: `ArucoMarkerDetection.py`, `Pdf.py`, `Scrape.py` and the aforementioned packages used in the files. Once this is complete users will only need to run `arUco file name?`.
 
-> Note:  The `arUco file name?`, `Pdf.py`, and `Scrape.py` files should all be in the same working directory. 
+> Note:  The `ArucoMarkerDetection.py`, `Pdf.py`, and `Scrape.py` files should all be in the same working directory. 
 
-Start by selecting a supported city and it's associated ArUco marker. It is recommended that the ArUco marker gets printed although a digital image will works as well. Run the `arUco file name?` to open your computer's camera and show your computer camera an image of the ArUco marker. The main program will then detect and identify the marker which is associated with a destination, subsequently triggering the `Pdf.py` and the `Scrape.py` files to scrape real-time information about the destination and generate the pdf in the working directory. 
+Start by selecting a supported city and it's associated ArUco marker. The ArUco marker can be a digital image or printed. Run the `ArucoMarkerDetection.py` to open your computer's camera and show your computer camera an image of the ArUco marker. The main program will then detect and identify the marker which is associated with a destination, subsequently triggering the `Pdf.py` and the `Scrape.py` files to scrape real-time information about the destination and generate the pdf in the working directory. 
 
 
   
