@@ -1,7 +1,7 @@
 # ME369P U02 Final Project
 By: Jason Rivas, Razeen Noor, and Isabella Gomez
 
-This project aims to provide travelers with convenient access to real time information about their destination. This project consitsts of three main components: detecting ArUco markers that are associated with the travel destination, generating the pdf with the scraped information, and scraping the information from real-time sources. 
+This project aims to provide travelers with convenient access to real time information about their travel destination. This project consitsts of three main components: detecting ArUco markers that are associated with the travel destination, generating the pdf with the scraped information, and scraping the information from real-time sources. 
 ![](https://github.com/RazeenNoor/ME369P_U02_LightningTalk/blob/2dbd3e1347439c818766b9efcd29dbfc10fc3973/Images/Program%20Architecture.png)
 
 
