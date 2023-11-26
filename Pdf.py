@@ -12,19 +12,21 @@ class BuildPDF:
         if self.city in ["austin", "boston", "chicago"]:
             self.generate_pdf(filename)
         else:
-            print(f"City '{city}' is not supported.")
+            print(f"City '{city}' is currently not a destination.")
+
 
     def generate_pdf(self, filename):
-        city_instance = Scrape.Cities(self.city)
-        current_date_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        current_weather, forecast = city_instance.weather()
+        city_info = Scrape.Cities(self.city)
+        
         
         # Title and Current Weather
+        current_datetime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        current_weather, forecast = city_info.weather()       
         pdf_content = (
-                        f"<T>Information for {self.city.capitalize()}\n as of {current_date_time}\n\n" #Title
+                        f"<T>Information for {self.city.capitalize()}\n as of {current_datetime}\n\n" #Title
                        
                         f"<H>Current Weather:\n" #Heading
-                        f"- The current temperature is {current_weather['temp']}\n"
+                        f"- The current temperature is {current_weather['temp']}\n" #text
                         f"- There is a {current_weather['precip']} chance of rain\n"
                         f"- Current Conditions:\n{current_weather['conditions']}\n"
                        )
@@ -32,28 +34,28 @@ class BuildPDF:
         # 3 Day Forecast 
         pdf_content += "\n<H>3 Day Forecast:\n" #Heading
         for date, details in forecast.items():
-            pdf_content += (f"<h>- {date}:\n"
-                            f"     High / Low: {details[0]}\n"
+            pdf_content += (f"<h>- {date}:\n" #subheading
+                            f"     High / Low: {details[0]}\n" #text
                             f"     Chance of Rain: {details[1]}\n"
                             f"     Description: {details[2]}\n\n"
                             )
         
         # Current News
         pdf_content += "<H>Current News:\n" #Heading
-        for headline in city_instance.news():
-            pdf_content += f"- {headline}\n"
+        for headline in city_info.news():
+            pdf_content += f"- {headline}\n" #text
         
         # Events
         pdf_content += "\n<H>Events:\n" #Heading
-        for event, (date, time) in city_instance.events().items():
-            pdf_content += f"- {event} on {date} at {time}\n"
+        for event, (date, time) in city_info.events().items():
+            pdf_content += f"- {event} on {date} at {time}\n" #text
         
         # Landmarks
-        pdf_content += "\n<H>Landmarks:\n" #<HH> Heading
+        pdf_content += "\n<H>Landmarks:\n" #Heading
         landmark_imgs=[]
-        for landmark, img_url in city_instance.landmarks().items():
+        for landmark, img_url in city_info.landmarks().items():
             landmark_imgs.append(ImageReader(img_url))
-            pdf_content += f"- {landmark} \n"
+            pdf_content += f"- {landmark} \n" #text
 
 
         # create canvas
@@ -65,12 +67,12 @@ class BuildPDF:
         Hfont,Hsize="Helvetica-Bold",16
         tfont,tsize="Helvetica",12
         
-        #Font colors
-        Hcolor = (.2, .5, 1)  # RGB values from 0-1
-        Tcolor = (1, 0, 0)
-        tcolor = (0, 0, 0)
+        #Font colors (RGB values from 0-1)
+        Hcolor = (.2, .5, 1)  #Heading color
+        Tcolor = (1, 0, 0)    #Title color
+        tcolor = (0, 0, 0)    #text color
 
-        # line spacing
+        #Spacing
         margin = 50
         lines = pdf_content.split('\n')
         line_height = 15 
@@ -133,6 +135,6 @@ class BuildPDF:
 
 if __name__ == '__main__':
     pass
-    # BuildPDF("Austin")
-    # BuildPDF("Boston")
-    # BuildPDF("Chicago")
+    BuildPDF("Austin")
+    BuildPDF("Boston")
+    BuildPDF("Chicago")
