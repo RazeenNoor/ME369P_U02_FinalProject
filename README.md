@@ -37,7 +37,7 @@ To utilize this project the user will need to download the following files from 
 
 > Note:  The `ArucoMarkerDetection.py`, `Pdf.py`, and `Scrape.py` files should all be in the same working directory. 
 
-Start by selecting a supported city and it's associated ArUco marker. The ArUco marker can be a digital image or printed. Run the `ArucoMarkerDetection.py` to open your computer's camera and show your computer camera an image of the ArUco marker. The main program will then detect and identify the marker which is associated with a destination, subsequently triggering the `Pdf.py` and the `Scrape.py` files to scrape real-time information about the destination and generate the pdf in the working directory. 
+Start by scanning an ArUco marker associated with your selected city. The ArUco marker can be a digital image or printed. Run the `ArucoMarkerDetection.py` to open your computer's camera and show your computer camera an image of the ArUco marker. The main program will then detect and identify the marker which is associated with a destination, subsequently triggering the `Pdf.py` and the `Scrape.py` files to scrape real-time information about the destination and generate the pdf in the working directory. 
 
 
   
