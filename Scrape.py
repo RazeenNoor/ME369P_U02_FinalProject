@@ -81,7 +81,7 @@ class Cities:
         url=Event_link[self.city]
         html=requests.get(url)
         s3c=BeautifulSoup(html.content,'html.parser')
-        c2=s3c.find('ul',{"class","EventList__BaseEventList-sc-27d91e34-2 iDIABp"})
+        c2=s3c.find('ul',{"class","EventList__BaseEventList-sc-5ddb2c79-2 hmZOFC"})
         c3=c2.find_all('li')
         for tag in c3[:4]:
             event=tag.find('p',{'data-testid':"event-item-title", 'class':"EventItem__Title-sc-6323af75-1 rmJCb"}).text 
